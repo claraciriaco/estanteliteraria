@@ -1,22 +1,24 @@
+from flask import render_template
 from app import app
+
 
 @app.route("/index")
 @app.route("/")
 def index():
-    return "Página principal" 
-
-@app.route("/cadastro")
-def cadastro ():
-    return "Página de Cadastro" 
+    return render_template('base.html')
 
 @app.route("/login")
-def cadastro ():
-    return "Página de Login"
+def login():
+    return render_template('login.html')
+
+@app.route("/cadastro")
+def cadastro():
+    return render_template('cadastro.html')
 
 @app.route("/estante")
-def estante ():
-    return "Página dos livros" 
+def estante():
+    return render_template('estante.html')
 
 @app.route("/cadastrolivro")
-def cadastrolivro ():
-    return "Cadastrar um novo livro" 
+def cadastrolivro():
+    return render_template('cadastrolivro.html')
