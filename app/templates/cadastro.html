@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Estante Literária | Cadastrar</title>
+    <title>Estante Literária | Cadstrar</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
@@ -41,16 +41,27 @@
           </div><!--/.nav-collapse -->
         </div>
     </nav>
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Cadastrar-se:</h2>
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-        <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+
+      <form class="form-signin" action="" method="GET ,POST">
+        <h2 class="form-signin-heading">Fazer Cadastro:</h2>
+
+        {{ form.hidden_tag() }}
+        
+        <label>Nome de Usuário</label>
+        {{ form.username(class="form-control", placeholder="UserName")}}
+        
+        <label>Email</label>
+        {{ form.email(class="form-control", placeholder="UserName")}}
+
+        <label>Nome</label>
+        {{ form.name(class="form-control", placeholder="UserName")}}
+
+        <label>Senha</label>
+        {{ form.password(class="form-control",placeholder="********")}}
+        
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       </form>
-
     </div> <!-- /container -->
 
 

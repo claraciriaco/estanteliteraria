@@ -42,25 +42,16 @@
         </div>
     </nav>
 
-      <form class="form-signin" action="" method="POST">
+      <form class="form-signin" action="" method="GET ,POST">
         <h2 class="form-signin-heading">Fazer Login:</h2>
 
         {{ form.csrf_token }}
+        
         <label>Nome de Usuário</label>
         {{ form.username(class="form-control", placeholder="UserName")}}
-        {% if form.errors.username %}
-        <div class="alert alert-danger" role="alert">
-          {{ form.errors.username }}
-        </div>
-        {% endif %}
         
         <label>Senha</label>
         {{ form.password(class="form-control",placeholder="********")}}
-        {% if form.errors.password %}
-        <div class="alert alert-danger" role="alert">
-          {{form.errors.password}}
-        </div>
-        {% endif %}
         
         <div class="checkbox">
           <label>{{ form.remember_me}}Remember-me</label>

@@ -35,24 +35,44 @@
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li ><a href="estante">Home</a></li>
+              <li ><a href="estante">Livros</a></li>
               <li class="active"><a href="#">Novo Livro</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
     </nav>
-      <form class="form-signin">
-        <h2 class="form-signin-heading">Cadastrar Novo Livro:</h2>
-        <label for="inputEmail" class="sr-only">Email</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
-        <label for="inputPassword" class="sr-only">Senha</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
-        <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-      </form>
 
-    </div> <!-- /container -->
+<form class="form-booknew" action="" method="POST">
+  <h2 class="form-signin-heading">Novo Livro:</h2>
 
+  {{ form.hidden_tag() }}
+
+  <p>
+    <label>Título:</label>
+    {{ form.title(size=100, class="form-control", placeholder="Ex.: Iracema") }}
+  </p>
+  <p>
+    <label>Autor(a):</label>
+    {{ form.autor(size=100, class="form-control", placeholder="Ex.: José de Alencar") }}
+  </p>
+  <p>
+    <label>Dia de Início da Leitura:</label>
+    {{ form.datainicio(size=8, class="form-control", placeholder="Ex.: 08012012 (dd mm aaaa)") }}
+  </p>
+  <p>
+    <label>Dia do Termino da Leitura:</label>
+    {{ form.datafim(size=8, class="form-control", placeholder="Ex.: 10012012 (dd mm aaaa)") }}
+  </p>
+  <p>
+    <label>Observações Sobre o Livro:</label>
+    {{ form.obs(size=250, class="form-control", placeholder="Ex.: Achei o livro incrível...") }}
+  </p>
+  <br>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+
+</form>
+
+</div> <!-- /container -->
 
     <!-- jQuerry (necessary for Bootstrap's JavaScript plugins)-->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

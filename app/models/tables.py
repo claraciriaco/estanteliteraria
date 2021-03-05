@@ -41,3 +41,4 @@ class Book(db.Model):
 
     def __repr(self):
         return "<Book %r>" % self.title
+
