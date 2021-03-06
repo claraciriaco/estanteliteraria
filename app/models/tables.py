@@ -22,7 +22,7 @@ class Book(db.Model):
     __tablename__ = "books"
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String, unique=True)
     autor = db.Column(db.String)
     datainicio = db.Column(db.String)
@@ -41,4 +41,3 @@ class Book(db.Model):
 
     def __repr(self):
         return "<Book %r>" % self.title
-

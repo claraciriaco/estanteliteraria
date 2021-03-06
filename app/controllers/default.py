@@ -1,5 +1,5 @@
 from flask import request, render_template, redirect, url_for
-from app import app
+from app import app, db
 
 from app.models.tables import Book, User
 
@@ -23,18 +23,20 @@ def login():
     if form.validate_on_submit():
         print(form.username.data)
         print(form.password.data)
+        return ("entrou")
 
-@app.route("/cadastro", methods=['GET', 'POST'])
+@app.route("/cadastro/", methods=['GET', 'POST'])
 def cadastro():
-    form = CadastroForm()
-    if form.validate_on_submit():
-        f = User(name=form.name.data, email=form.email.data,
-      username=form.username.data, password=form.password.data)
-        db.session.add(f)
-        db.session.commit()
-        print("foi")
-        return redirect(url_for("login"))
-    return render_template('cadastro.html', form=form)
+  form = CadastroForm()
+  if form.validate_on_submit():
+    i = User (username=form.username.data, password = form.password.data,
+    name = form.name.data, email = form.email.data)
+    db.session.add(i)
+    db.session.commit()
+    print(form.name.data)
+    return redirect("login")
+  return render_template("cadastro.html", form=form)
+  
 
 
 @app.route("/estante")
@@ -52,3 +54,11 @@ def cadastrolivro():
     print(form.title.data)
     return redirect(url_for("estante"))
   return render_template("cadastrolivro.html", form=form)
+
+
+@app.route("/teste/<info>")
+@app.route("/teste", defaults={"info" : None})
+def teste(info):
+    r = User.query.filter_by(username="claraC").all()
+    print(r)
+    return ("okay")
