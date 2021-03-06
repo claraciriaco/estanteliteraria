@@ -1,14 +1,34 @@
 {% extends 'baseestante.html' %}
 
 {% block style %}
-
   <!-- Custom styles for this template -->
   <link href="{{url_for('static', filename='css/offcanvas.css')}}" rel="stylesheet">
-
 {% endblock style %}
 
 {% block content %}
 
-<h1>LIVROS:</h1>
+<h1>Livros</h1>
+
+{% if filmes %}
+<table class="table table-striped">
+  <tr>
+    <th>Título</th>
+    <th>Autor(a)</th>
+    <th>Dia de início da leitura</th>
+    <th>Dia de termino da leitura</th>
+    <th>Observações</th>
+  </tr>
+{% for book in books %}
+  <tr>
+    <td>{{ book.title }}</td>
+    <td>{{ book.autor }}</td>
+    <td>{{ book.datainicio }}</td>
+    <td>{{ book.datafim }}</td>
+    <td>{{ book.obs }}</td>
+  </tr>
+{% endfor %}
+</table>
+{% endif %}
+
 
 {% endblock content %}

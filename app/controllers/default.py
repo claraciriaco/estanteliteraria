@@ -18,7 +18,7 @@ def index():
 
 @app.route("/login", methods=["GET","POST"])
 def login():
-    form = LoginForm()
+    form = User()
     return render_template("login.html", form=form)
     if form.validate_on_submit():
         print(form.username.data)
@@ -27,7 +27,7 @@ def login():
 
 @app.route("/cadastro/", methods=['GET', 'POST'])
 def cadastro():
-  form = CadastroForm()
+  form = User()
   if form.validate_on_submit():
     i = User (username=form.username.data, password = form.password.data,
     name = form.name.data, email = form.email.data)
@@ -41,7 +41,14 @@ def cadastro():
 
 @app.route("/estante")
 def estante():
-    return render_template('estante.html')
+    book = Book.query.all()
+    return render_template('estante.html', books=books)
+
+@app.route("/filmes")
+def filmes():
+  filmes = Filme.query.all()
+  return render_template("filmes.html", filmes=filmes)
+
 
 @app.route("/estante/novo", methods=['GET', 'POST'])
 def cadastrolivro():
@@ -62,3 +69,11 @@ def teste(info):
     r = User.query.filter_by(username="claraC").all()
     print(r)
     return ("okay")
+
+
+@app.route("/usertes/<info>")
+@app.route("/usertes", defaults={"info" : None})
+def usertes(info):
+    r = User.query.all()
+    print(r)
+    return render_template("printlivros.html", user = r )

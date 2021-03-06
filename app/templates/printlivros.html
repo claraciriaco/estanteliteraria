@@ -5,23 +5,17 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-  <div class="page-header">
-    <h1>{{ filmes|length }} filmes encontrados</h1>
-  </div>
-{% if filmes %}
+
+{% if user %}
   <table class="table table-striped">
     <tr>
-      <th>ID</th>
-      <th>Título</th>
-      <th>Ano</th>
-      <th>Nota</th>
+      <th>nome</th>
+      <th>email</th>
     </tr>
-  {% for filme in filmes %}
+  {% for user in users %}
     <tr>
-      <td>{{ filme.id }}</td>
-      <td>{{ filme.titulo }}</td>
-      <td>{{ filme.ano }}</td>
-      <td>{{ filme.nota_imdb }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
     </tr>
   {% endfor %}
   </table>
