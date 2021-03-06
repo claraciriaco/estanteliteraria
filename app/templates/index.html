@@ -1,5 +1,11 @@
-
 {% extends 'base.html' %}
+
+{% block style %}
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='css/offcanvas.css')}}" rel="stylesheet">
+
+{% endblock style %}
 
 {% block content %}
 
