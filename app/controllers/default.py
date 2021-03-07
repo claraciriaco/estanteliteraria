@@ -41,13 +41,8 @@ def cadastro():
 
 @app.route("/estante")
 def estante():
-    book = Book.query.all()
-    return render_template('estante.html', books=books)
-
-@app.route("/filmes")
-def filmes():
-  filmes = Filme.query.all()
-  return render_template("filmes.html", filmes=filmes)
+    Books = Book.query.all()
+    return render_template('estante.html', Books=Books)
 
 
 @app.route("/estante/novo", methods=['GET', 'POST'])
@@ -61,19 +56,3 @@ def cadastrolivro():
     print(form.title.data)
     return redirect(url_for("estante"))
   return render_template("cadastrolivro.html", form=form)
-
-
-@app.route("/teste/<info>")
-@app.route("/teste", defaults={"info" : None})
-def teste(info):
-    r = User.query.filter_by(username="claraC").all()
-    print(r)
-    return ("okay")
-
-
-@app.route("/usertes/<info>")
-@app.route("/usertes", defaults={"info" : None})
-def usertes(info):
-    r = User.query.all()
-    print(r)
-    return render_template("printlivros.html", user = r )

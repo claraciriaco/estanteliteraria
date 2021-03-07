@@ -9,7 +9,7 @@
 
 <h1>Livros</h1>
 
-{% if filmes %}
+
 <table class="table table-striped">
   <tr>
     <th>Título</th>
@@ -18,17 +18,17 @@
     <th>Dia de termino da leitura</th>
     <th>Observações</th>
   </tr>
-{% for book in books %}
+{% for Book in Books %}
   <tr>
-    <td>{{ book.title }}</td>
-    <td>{{ book.autor }}</td>
-    <td>{{ book.datainicio }}</td>
-    <td>{{ book.datafim }}</td>
-    <td>{{ book.obs }}</td>
+    <td>{{ Book.title }}</td>
+    <td>{{ Book.autor }}</td>
+    <td>{{ Book.datainicio }}</td>
+    <td>{{ Book.datafim }}</td>
+    <td>{{ Book.obs }}</td>
   </tr>
 {% endfor %}
 </table>
-{% endif %}
+
 
 
 {% endblock content %}
