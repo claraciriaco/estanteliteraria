@@ -9,7 +9,7 @@
 
 {% block content %}
 
-      <form class="form-booknew" action="" method="GET ,POST">
+      <form class="form-booknew" action="" method="POST">
         <h2 class="form-signin-heading">Fazer Cadastro:</h2>
 
         {{ form.hidden_tag() }}
@@ -27,7 +27,7 @@
         {{ form.password(class="form-control",placeholder="********")}}
         
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
       </form>
 
 {% endblock content %}      
