@@ -35,9 +35,9 @@ def login():
     return redirect(url_for("estante"))
   form = LoginForm()
   if form.validate_on_submit():
-    User = User.query.filter_by(username = form.data.username).first()
+    User = User.query.filter_by(username = form.username.data).first()
     if User is None or user.check_password(form.password_hash.data):
-      flask.flash('Username e/ou senha inválidos')
+      flash('Username e/ou senha inválidos')
       return redirect(self)
       login_user(user, remember_me=form.remember_me.data)
       return redirect(url_for("estante"))
