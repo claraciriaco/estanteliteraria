@@ -12,11 +12,13 @@ bootstrap = Bootstrap(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-
+login = LoginManager(app)
+login.login_view = "login"
 
 
 from app.controllers import default
 from app.models import tables
+from app.models import user
 
 
 

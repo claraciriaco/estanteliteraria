@@ -17,14 +17,11 @@
         <label>Nome de Usuário</label>
         {{ form.username(class="form-control", placeholder="UserName")}}
         
-        <label>Nome</label>
-        {{ form.name(class="form-control", placeholder="Nome Sobrenome")}}
-        
         <label>Email</label>
         {{ form.email(class="form-control", placeholder="Email@email.com")}}
         
         <label>Senha</label>
-        {{ form.password(class="form-control",placeholder="********")}}
+        {{ form.password_hash(class="form-control",placeholder="********")}}
         
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>

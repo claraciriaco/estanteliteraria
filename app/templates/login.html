@@ -17,7 +17,7 @@
         {{ form.username (class="form-control", placeholder="UserName")}}
         
         <label>Senha</label>
-        {{ form.password (class="form-control",placeholder="********")}}
+        {{ form.password_hash (class="form-control",placeholder="********")}}
         
         <div class="checkbox">
           <label>{{ form.remember_me}}Remember-me</label>
@@ -25,5 +25,14 @@
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
       </form>
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
       
 {% endblock content %}
