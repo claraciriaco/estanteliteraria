@@ -2,7 +2,7 @@ from flask import request, render_template, redirect, url_for
 
 from app import app, db
 
-from flask_login import current_user, login_user, logout_user
+from flask_login import current_user, login_user, logout_user, login_required
 
 from app.models.tables import Book
 from app.models.user import User
@@ -35,25 +35,27 @@ def login():
     return redirect(url_for("estante"))
   form = LoginForm()
   if form.validate_on_submit():
-    User = User.query.filter_by(username = form.username.data).first()
+    user = User.query.filter_by(username = form.username.data).first()
     if User is None or user.check_password(form.password_hash.data):
-      flash('Username e/ou senha inválidos')
-      return redirect(self)
+      flash("Nome de usuário e/ou senha inválidos")
+      return redirect(url_for(self))
       login_user(user, remember_me=form.remember_me.data)
       return redirect(url_for("estante"))
-  return render_template("login.html", title="submit", form=form)
+  return render_template("login.html", title="Entrar", form=form)
 
-@app.route("/logout")
+@app.route('/logout')
 def logout():
   logout_user()
   return redirect(url_for("login"))
 
 @app.route("/estante")
+@login_required
 def estante():
     Books = Book.query.all()
     return render_template('estante.html', Books=Books)
 
 @app.route("/estante/novo", methods=['GET', 'POST'])
+@login_required
 def cadastrolivro():
   form = LivroForm()
   if form.validate_on_submit():
