@@ -12,7 +12,7 @@ class LoginForm(Form):
 class CadastroForm(Form):
     username = StringField("username",validators=[DataRequired()])
     email = StringField("email",validators=[DataRequired()])
-    password_hash = PasswordField("password", validators=[DataRequired()])
+    password_hash = PasswordField("password_hash", validators=[DataRequired()])
     
     submit = SubmitField('submit')
 

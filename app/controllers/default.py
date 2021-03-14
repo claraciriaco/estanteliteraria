@@ -18,16 +18,16 @@ def index():
     return render_template('index.html')
 
 @app.route("/cadastrar", methods=['GET', 'POST'])
-def cadastro():
+def cadastrar():
   form = CadastroForm()
   if form.validate_on_submit():
-    f = User(username=form.username.data, email=form.email.data,
-      password_hash=form.password_hash.data)
-    db.session.add(f)
+    c = User(username=form.username.data, email=form.email.data)
+    c.set_password(password=form.password_hash.data)
+    db.create_all()
+    db.session.add(c)
     db.session.commit()
-    print(form.username.data)
     return redirect(url_for("login"))
-  return render_template("cadastro.html", form=form)    
+  return render_template("cadastro.html", form=form)
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -36,8 +36,8 @@ def login():
   form = LoginForm()
   if form.validate_on_submit():
     User = User.query.filter_by(username = form.data.username).first()
-    if User is None or user.check_password(form.password.data):
-      flask.flash('Logged in successfully.')
+    if User is None or user.check_password(form.password_hash.data):
+      flask.flash('Username e/ou senha inválidos')
       return redirect(self)
       login_user(user, remember_me=form.remember_me.data)
       return redirect(url_for("estante"))
@@ -61,6 +61,5 @@ def cadastrolivro():
       datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data)
     db.session.add(f)
     db.session.commit()
-    print(form.title.data)
     return redirect(url_for("estante"))
   return render_template("cadastrolivro.html", form=form)

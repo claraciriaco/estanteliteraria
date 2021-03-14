@@ -9,6 +9,8 @@ def load_user(id):
 
 
 class User(UserMixin, db.Model):
+
+    __tablename__ = "users"
     
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -21,5 +23,9 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    def __repr__(self):
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+
+    def __repr_(self):
             return "<User {})>".format(self.username)
