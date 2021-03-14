@@ -35,12 +35,12 @@ def login():
     return redirect(url_for("estante"))
   form = LoginForm()
   if form.validate_on_submit():
-    user = User.query.filter_by(username = form.username.data).first()
-    if User is None or user.check_password(form.password_hash.data):
+    user = User.query.filter_by(username=form.username.data).first()
+    if user is None or not user.check_password(form.data.password_hash):
       flash("Nome de usuário e/ou senha inválidos")
       return redirect(url_for(self))
-      login_user(user, remember_me=form.remember_me.data)
-      return redirect(url_for("estante"))
+    login_user(user, remember=form.remember_me.data)
+    return redirect(url_for("estante"))
   return render_template("login.html", title="Entrar", form=form)
 
 @app.route('/logout')
