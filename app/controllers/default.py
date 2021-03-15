@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for
+from flask import request, render_template, redirect, url_for, flash
 
 from app import app, db
 
@@ -9,7 +9,7 @@ from app.models.user import User
 
 from app.models.formslivro import LivroForm
 from app.models.formuser import LoginForm
-from app.models.formuser import CadastroForm
+from app.models.formcadastrouser import CadastroForm
 
 
 @app.route("/index")
@@ -36,12 +36,12 @@ def login():
   form = LoginForm()
   if form.validate_on_submit():
     user = User.query.filter_by(username=form.username.data).first()
-    if user is None or not user.check_password(form.data.password_hash):
-      flash("Nome de usuário e/ou senha inválidos")
-      return redirect(url_for(self))
+    if user is None or not User.check_password(form.password_hash.data):
+      flash('Nome de usuário e/ou senha inválidos')
+      return redirect(url_for('login'))
     login_user(user, remember=form.remember_me.data)
     return redirect(url_for("estante"))
-  return render_template("login.html", title="Entrar", form=form)
+  return render_template("login.html", title="Sig In", form=form)
 
 @app.route('/logout')
 def logout():
