@@ -1,6 +1,8 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, PasswordField, SubmitField
 from wtforms.validators import DataRequired 
+
+Form = FlaskForm
 
 class CadastroForm(Form):
     username = StringField("username",validators=[DataRequired()])

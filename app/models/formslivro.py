@@ -1,6 +1,8 @@
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired 
+
+Form = FlaskForm
 
 class LivroForm(Form):
     title = StringField("title",validators=[DataRequired()])

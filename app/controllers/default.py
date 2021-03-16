@@ -1,4 +1,4 @@
-from flask import request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, flash
 
 from app import app, db
 
@@ -29,19 +29,22 @@ def cadastrar():
     return redirect(url_for("login"))
   return render_template("cadastro.html", form=form)
 
+@login.user_loader
+def load_user(username):
+    return User.get(username)
+    
 @app.route("/login", methods=['GET','POST'])
 def login():
-  if current_user.is_authenticated:
-    return redirect(url_for("estante"))
   form = LoginForm()
   if form.validate_on_submit():
-    user = User.query.filter_by(username=form.username.data).first()
-    if user is None or not User.check_password(form.password_hash.data):
-      flash('Nome de usuário e/ou senha inválidos')
-      return redirect(url_for('login'))
-    login_user(user, remember=form.remember_me.data)
-    return redirect(url_for("estante"))
+    User = User.query.filter_by(username=form.data.username).first()
+    if User and User.check_password(form.data.password_hash):
+      login_user(uUser)
+      return redirect(url_for("estante"))
+    else:
+      flash('erro')
   return render_template("login.html", title="Sig In", form=form)
+
 
 @app.route('/logout')
 def logout():
