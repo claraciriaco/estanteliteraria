@@ -1,7 +1,7 @@
 from app import app
 from flask import request, render_template, redirect, url_for, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
-from app.models.forms import LivroForm, LoginForm, CadastroForm
+from app.models.forms import LivroForm, LoginForm, CadastroForm, DeleteForm
 from app.models.tables import Book, User
 from app import db, lm
 
@@ -56,23 +56,22 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data): 
             login_user(user)
-            flash("Usuário Confirmado")
             next_page = request.args.get('next')
             if not next_page or url_parse(next_page).netloc != '':
                 next_page = url_for('estante')
             return redirect(next_page)
 
         else:
-            flash("Dados Invélidos")    
+            flash("Dados Inválidos")    
     return render_template('login.html', form=form)
 
-    #Usuário Logado
+#Usuário Logado
 
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
-    flash("Sair da conta")
+    flash("Logout")
     return redirect(url_for("login"))
 
 @app.route("/estante")
@@ -83,18 +82,49 @@ def estante():
 
 @app.route("/estante/novo", methods=['GET', 'POST'])
 @login_required
-def novolivro():
-    user = User.query.get(current_user.id)
-    book = user.book
-    
+def novolivro():    
     form = LivroForm()
     if form.validate_on_submit():
         f = Book(title=form.title.data, autor=form.autor.data,
-      datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data, dono=user)
+      datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data, author=user)
         db.session.add(f)
         db.session.commit()
         return redirect(url_for("estante"))
     return render_template("cadastrolivro.html", form=form)
+
+@app.route("/estante/edit/<int:id>", methods=['GET', 'POST'])
+@login_required
+def book_edit(id):
+    book = Book.query.get(id)
+    form = LivroForm()
+ 
+    if(book is None):
+        return abort(404)
+
+    if form.validate_on_submit():
+        book.title = form.title.data
+        book.autor = form.autor.data
+        book.datainicio = form.datainicio.data
+        book.datafim = form.datafim.data
+        book.obs = form.obs.data
+        db.session.commit()
+        return redirect(url_for("estante"))
+    else:
+        form.title.data = book.title
+
+    return render_template('editbook.html', book=book, form=form)
+
+@app.route("/estante/delete/<int:id>", methods=['GET', 'POST'])
+@login_required
+def book_delete(id):
+    book = Book.query.get(id)
+
+    if(book is None):
+        return abort(404)
+
+    db.session.delete(book)
+    db.session.commit()
+    return redirect(url_for("estante"))
 
 
 

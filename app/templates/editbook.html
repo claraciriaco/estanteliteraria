@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block tittle %}| Novo Livro{% endblock tittle %}
+
+{% block style %}
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='css/signin.css')}}" rel="stylesheet">  
+
+{% endblock style %}
+
+{% block nave %}<a class="navbar-brand" href="/estante">Estante Literáira</a>{% endblock nave %} 
+{% block nav %}
+<li><a href="/estante/novo">Novo Livro</a></li>
+<li><a href="/user">Minha Conta</a></li>
+<li><a href="/logout">Logout</a></li>
+{% endblock nav %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 min-vh-100 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="col-lg-6 col-md-8 mx-auto">
+
+                <!-- form card edit -->
+                <div class="card rounded shadow shadow-sm">
+                    <div class="card-header">
+                        <h3 class="mb-0">Editar Book</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="post">
+                            {{ form.hidden_tag() }}
+                            <p>
+                                <label>Título</label>
+                                {{ form.title(size=64, value=book.title, class="form-control") }}
+                            </p>
+                            <p>
+                                <label>Autor</label>
+                                {{ form.autor(size=64, value=book.autor, class="form-control") }}
+                            </p>
+                            <p>
+                                <label>Data Inicial da Leitura</label>
+                                {{ form.datainicio(size=8, value=book.datainicio, class="form-control") }}
+                            </p>
+                            <p>
+                                <label>Data Final da Leitura</label>
+                                {{ form.datafim(size=8, value=book.datafim, class="form-control") }}
+                            </p>
+                            <p>
+                                <label>Observações</label>
+                                {{ form.obs(size=300, value=book.obs, class="form-control") }}
+                            </p>
+                    </div>
+                    <div class="modal-footer">
+                        {{form.submit(class="btn btn-info")}}
+                        <a href="{{ url_for( 'book_delete', id=book.id) }}"data-target="#deleteModal" class="btn btn-info">Excluir</a>
+                    </div>
+                    </form>
+                    <!--/card-block-->
+                </div>
+                <!-- /form card login -->
+            </div>
+        </div>
+        <!--/row-->
+    </div>
+    <!--/col-->
+</div>
+<!--/row-->
+
+{% endblock content %}

@@ -10,17 +10,11 @@
 {% endblock style %}
 
 {% block nave %}<a class="navbar-brand" href="/estante">Estante Literáira</a>{% endblock nave %} 
-{% block nav %}
-<li><a href="/estante/novo">Novo Livro</a></li>
-<li><a href="/user">Minha Conta</a></li>
-<li><a href="/logout">Logout</a></li>
-{% endblock nav %}
 
 {% block content %}
 <div class="form-booknew">
     <h1> Erro {{ error_id }}</h1>
     <h2>{{ error_desc }}</h2>
 
-<button class="btn btn-lg btn-primary btn-block" href="/index">Home</button>
 </div>
 {% endblock content %}  

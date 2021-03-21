@@ -10,7 +10,7 @@ class User(db.Model):
     name = db.Column(db.String(60))
     password_hash = db.Column(db.String(180))
     
-    book = db.relationship('Book', backref='dono', lazy='dynamic')
+    book = db.relationship('Book', backref='author', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -39,8 +39,6 @@ class User(db.Model):
 
 
 class Book(db.Model):
-    __tablename__ = "books"
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, unique=True, index=True)
     autor = db.Column(db.String, index=True)
@@ -51,14 +49,5 @@ class Book(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     # user = db.relationship('User', db.ForeignKey('users.id'))
-
-
-    def __init__(self, title, autor, datainicio, datafim, obs):
-        self.title = title
-        self.autor = autor
-        self.datainicio = datainicio
-        self.datafim = datafim
-        self.obs = obs
-
-    def __repr(self):
+    def __repr__(self):
         return "<Book %r>" % self.title

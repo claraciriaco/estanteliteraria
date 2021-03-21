@@ -28,4 +28,7 @@ class CadastroForm(FlaskForm):
     
     submit = SubmitField('submit')
 
+class DeleteForm(FlaskForm):
+    submit = SubmitField('Excluir')
+
 
