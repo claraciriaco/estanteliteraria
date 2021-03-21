@@ -90,11 +90,11 @@ def novolivro():
     form = LivroForm()
     if form.validate_on_submit():
         f = Book(title=form.title.data, autor=form.autor.data,
-      datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data, author=user)
+      datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data, dono=user)
         db.session.add(f)
         db.session.commit()
         return redirect(url_for("estante"))
-    return render_template("cadastrolivro.html",book=book, form=form)
+    return render_template("cadastrolivro.html", form=form)
 
 
 
