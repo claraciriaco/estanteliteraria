@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block tittle %}| Login{% endblock tittle %}
+
 {% block style %}
 
   <!-- Custom styles for this template -->
@@ -7,21 +9,31 @@
 
 {% endblock style %}
 
+{% block nave %}<a class="navbar-brand" href="/index">Estante Literáira</a>{% endblock nave %}   
+{% block nav %}
+<li><a href="/login">Login</a></li>
+<li><a href="/cadastrar">Cadastrar</a></li>
+{% endblock nav %}
+
 {% block content %}
 
       <form class="form-signin" action="" method="POST">
         <h2 class="form-signin-heading">Fazer Login:</h2>
 
+        {{ form.hidden_tag() }}
         
         <label>Nome de Usuário</label>
         {{ form.username (class="form-control", placeholder="UserName")}}
         
         <label>Senha</label>
-        {{ form.password_hash (class="form-control",placeholder="********")}}
+        {{ form.password (class="form-control",placeholder="********")}}
         
         <div class="checkbox">
           <label>{{ form.remember_me}}Remember-me</label>
         </div>
+
+        <a href="{{url_for('cadastro')}}" class="text-info card-link">Não possui conta? Cadastre-se</a>
+        <br>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
         <br>

@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
+{% block tittle %}| Cadastrar{% endblock tittle %}
+
+{% block nave %}<a class="navbar-brand" href="/index">Estante Literáira</a>{% endblock nave %}   
+{% block nav %}
+<li><a href="/login">Login</a></li>
+<li><a href="/cadastrar">Cadastrar</a></li>
+{% endblock nav %}
+
 {% block style %}
 
   <!-- Custom styles for this template -->
@@ -19,10 +27,14 @@
         
         <label>Email</label>
         {{ form.email(class="form-control", placeholder="Email@email.com")}}
+
+        <label>Nome</label>
+        {{ form.name(class="form-control", placeholder="Nome Sobrenome")}}
         
         <label>Senha</label>
-        {{ form.password_hash(class="form-control",placeholder="********")}}
-        
+        {{ form.password(class="form-control",placeholder="********")}}
+        <a href="{{url_for('login')}}" class="text-info card-link">Já possui uma conta? Entrar</a>
+        <br>
         <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastrar</button>
         <br>

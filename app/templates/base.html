@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Estante Literária</title>
+        <title>Estante Literária {% block tittle %}{% endblock tittle %}</title>
 
         <!-- Bootstrap core CSS -->
         <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
@@ -30,12 +30,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/index">Estante Literáira</a>
+            {% block nave %}{% endblock nave %}
           </div>
           <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="/login">Login</a></li>
-              <li><a href="/cadastrar">Cadastrar</a></li>
+              {% block nav %}
+              {% endblock nav %}
             </ul>
           </div><!-- /.nav-collapse -->
         </div><!-- /.container -->

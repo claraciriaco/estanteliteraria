@@ -1,9 +1,18 @@
-{% extends 'baseestante.html' %}
+{% extends 'base.html' %}
+
+{% block tittle %}| Livros{% endblock tittle %}
 
 {% block style %}
   <!-- Custom styles for this template -->
   <link href="{{url_for('static', filename='css/offcanvas.css')}}" rel="stylesheet">
 {% endblock style %}
+
+{% block nave %}<a class="navbar-brand" href="/estante">Estante Literáira</a>{% endblock nave %} 
+{% block nav %}
+<li><a href="/estante/novo">Novo Livro</a></li>
+<li><a href="/user">Minha Conta</a></li>
+<li><a href="/logout">Logout</a></li>
+{% endblock nav %}
 
 {% block content %}
 
