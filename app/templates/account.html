@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block tittle %}| Livros{% endblock tittle %}
+{% block tittle %}| Account{% endblock tittle %}
 
 {% block style %}
   <!-- Custom styles for this template -->
@@ -16,28 +16,26 @@
 
 {% block content %}
 
-<h1>Livros</h1>
+<h1>Account</h1>
 
 
 <table class="table table-striped">
   <tr>
-    <th>Título</th>
-    <th>Autor(a)</th>
-    <th>Dia de início da leitura</th>
-    <th>Dia de termino da leitura</th>
-    <th>Observações</th>
+    <th>Username</th>
+    <th>Nome</th>
+    <th>Email</th>
+    <th>Password</th>
     <th> </th>
     
   </tr>
 
-{% for Book in Books %}
+{% for User in Users %}
   <tr>
-    <td>{{ Book.title }}</td>
-    <td>{{ Book.autor }}</td>
-    <td>{{ Book.datainicio }}</td>
-    <td>{{ Book.datafim }}</td>
-    <td>{{ Book.obs }}</td>
-    <td><a href="{{ url_for( 'book_edit', id=Book.id) }}" class="badge badge-info">Editar</a></td>
+    <td>{{ User.username }}</td>
+    <td>{{ User.name }}</td>
+    <td>{{ User.email }}</td>
+    <td>********</td>
+    <td><a href="{{ url_for( 'user_edit', id=User.id) }}" class="badge badge-info">Editar</a></td>
   </tr>
 {% endfor %}
 </table>

@@ -118,13 +118,48 @@ def book_edit(id):
 @login_required
 def book_delete(id):
     book = Book.query.get(id)
-
     if(book is None):
         return abort(404)
-
     db.session.delete(book)
     db.session.commit()
     return redirect(url_for("estante"))
+
+@app.route("/account")
+@login_required
+def account():
+    Users = User.query.all()
+    return render_template('account.html', Users=Users)
+
+@app.route("/account/edit/<int:id>", methods=['GET', 'POST'])
+@login_required
+def user_edit(id):
+    user = User.query.get(id)
+    form = CadastroForm()
+ 
+    if(user is None):
+        return abort(404)
+
+    if form.validate_on_submit():
+        user.usename = form.username.data
+        user.email = form.email.data
+        user.name = form.name.data
+        user.password_hash = form.password.data
+        db.session.commit()
+        return redirect(url_for("estante"))
+    else:
+        form.username.data = user.username
+
+    return render_template('edituser.html', user=user, form=form)
+
+@app.route("/account/delete/<int:id>", methods=['GET', 'POST'])
+@login_required
+def user_delete(id):
+    user = User.query.get(id)
+    if(user is None):
+        return abort(404)
+    db.session.delete(user)
+    db.session.commit()
+    return redirect(url_for("logout"))
 
 
 

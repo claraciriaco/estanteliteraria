@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block tittle %}| Editar{% endblock tittle %}
+{% block tittle %}| Novo Livro{% endblock tittle %}
 
 {% block style %}
 
@@ -26,35 +26,31 @@
                 <!-- form card edit -->
                 <div class="card rounded shadow shadow-sm">
                     <div class="card-header">
-                        <h3 class="mb-0">Editar Book</h3>
+                        <h3 class="mb-0">Editar Dados</h3>
                     </div>
                     <div class="card-body">
                         <form action="" method="post">
                             {{ form.hidden_tag() }}
                             <p>
-                                <label>Título</label>
-                                {{ form.title(size=64, value=book.title, class="form-control") }}
+                                <label>Username</label>
+                                {{ form.username(size=64, value=user.username, class="form-control") }}
                             </p>
                             <p>
-                                <label>Autor</label>
-                                {{ form.autor(size=64, value=book.autor, class="form-control") }}
+                                <label>Email</label>
+                                {{ form.email(size=64, value=user.email, class="form-control") }}
                             </p>
                             <p>
-                                <label>Data Inicial da Leitura</label>
-                                {{ form.datainicio(size=8, value=book.datainicio, class="form-control") }}
+                                <label>Nome</label>
+                                {{ form.name(size=8, value=user.name, class="form-control") }}
                             </p>
                             <p>
-                                <label>Data Final da Leitura</label>
-                                {{ form.datafim(size=8, value=book.datafim, class="form-control") }}
-                            </p>
-                            <p>
-                                <label>Observações</label>
-                                {{ form.obs(size=300, value=book.obs, class="form-control") }}
+                                <label>Senha</label>
+                                {{ form.password(size=8, placeholder="*****", class="form-control") }}
                             </p>
                     </div>
                     <div class="modal-footer">
                         {{form.submit(class="btn btn-info")}}
-                        <a href="{{ url_for( 'book_delete', id=book.id) }}"data-target="#deleteModal" class="btn btn-info">Excluir</a>
+                        <a href="{{ url_for( 'user_delete', id=user.id) }}"data-target="#deleteModal" class="btn btn-info">Excluir Conta</a>
                     </div>
                     </form>
                     <!--/card-block-->
