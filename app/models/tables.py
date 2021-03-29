@@ -11,6 +11,7 @@ class User(db.Model):
     password_hash = db.Column(db.String(180))
     
     book = db.relationship('Book', backref='author', lazy='dynamic')
+    avaliacao = db.relationship('Avaliacao', lazy='dynamic')
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -44,10 +45,20 @@ class Book(db.Model):
     autor = db.Column(db.String, index=True)
     datainicio = db.Column(db.String, index=True)
     datafim = db.Column(db.String, index=True)
-    obs = db.Column(db.Text)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.Column('User', db.ForeignKey('user.id'))
+    avaliacao = db.Column('Avaliacao', db.ForeignKey('avaliacao.id'))
 
-    # user = db.relationship('User', db.ForeignKey('users.id'))
     def __repr__(self):
         return "<Book %r>" % self.title
+
+class Avaliacao(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    estrela = db.Column(db.Integer, index=True)
+    nota = db.Column(db.String, index=True)
+
+    book = db.Column('Book', db.ForeignKey('book.id'))
+    user = db.Column('User', db.ForeignKey('user.id'))
+
+    def __repr__(self):
+        return "<Avaliacao %r>" % self.estrela

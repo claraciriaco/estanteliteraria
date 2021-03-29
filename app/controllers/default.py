@@ -1,8 +1,8 @@
 from app import app
 from flask import request, render_template, redirect, url_for, flash, abort
 from flask_login import login_user, logout_user, login_required, current_user
-from app.models.forms import LivroForm, LoginForm, CadastroForm, DeleteForm
-from app.models.tables import Book, User
+from app.models.forms import LivroForm, AvaliacaoForm, LoginForm, CadastroForm, DeleteForm
+from app.models.tables import Book, Avaliacao, User
 from app import db, lm
 
 from werkzeug.urls import url_parse
@@ -12,12 +12,12 @@ from werkzeug.urls import url_parse
 def home():
     return render_template('index.html')
 
-
+#Função login
 @lm.user_loader
 def load_user(id):
     return User.query.filter_by(id=id).first()
 
-
+# CRUD User
 @app.route("/cadastrar", methods=['GET', 'POST'])
 def cadastro():
     form = CadastroForm()
@@ -44,7 +44,7 @@ def cadastro():
 
     return render_template('cadastro.html', form=form)
 
-
+# Configurações de Login
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -65,8 +65,6 @@ def login():
             flash("Dados Inválidos")    
     return render_template('login.html', form=form)
 
-#Usuário Logado
-
 @app.route("/logout", methods=['GET', 'POST'])
 @login_required
 def logout():
@@ -74,9 +72,11 @@ def logout():
     flash("Logout")
     return redirect(url_for("login"))
 
+# Book (CRUD + printagem)
 @app.route("/estante")
 @login_required
 def estante():
+    u = User.query.get(current_user.id)
     Books = Book.query.all()
     return render_template('estante.html', Books=Books)
 
@@ -86,12 +86,13 @@ def novolivro():
     form = LivroForm()
     if form.validate_on_submit():
         f = Book(title=form.title.data, autor=form.autor.data,
-      datainicio=form.datainicio.data, datafim=form.datafim.data, obs=form.obs.data, author=user)
+      datainicio=form.datainicio.data, datafim=form.datafim.data)
         db.session.add(f)
         db.session.commit()
         return redirect(url_for("estante"))
     return render_template("cadastrolivro.html", form=form)
 
+# Editar o model Book
 @app.route("/estante/edit/<int:id>", methods=['GET', 'POST'])
 @login_required
 def book_edit(id):
@@ -106,7 +107,6 @@ def book_edit(id):
         book.autor = form.autor.data
         book.datainicio = form.datainicio.data
         book.datafim = form.datafim.data
-        book.obs = form.obs.data
         db.session.commit()
         return redirect(url_for("estante"))
     else:
@@ -124,11 +124,13 @@ def book_delete(id):
     db.session.commit()
     return redirect(url_for("estante"))
 
+
+# Editar o model User
 @app.route("/account")
 @login_required
-def account():
-    Users = User.query.all()
-    return render_template('account.html', Users=Users)
+def account(id):
+    user = User.query.get(id)
+    return render_template('account.html', user=user)
 
 @app.route("/account/edit/<int:id>", methods=['GET', 'POST'])
 @login_required
@@ -161,10 +163,20 @@ def user_delete(id):
     db.session.commit()
     return redirect(url_for("logout"))
 
+#Novo model
+@app.route("/estante/avaliacao", methods=['GET', 'POST'])
+@login_required
+def avaliacao():    
+    form = AvaliacaoForm()
+    if form.validate_on_submit():
+        f = Avaliacao(estrelas=form.estrela.data, nota=form.nota.data)
+        db.session.add(f)
+        db.session.commit()
+        return redirect(url_for("estante"))
+    return render_template("cadastroavaliacao.html", form=form, book=book)
 
 
 #Tratamento de erros
-
 @app.errorhandler(404)
 def not_found_error(error):
     return render_template('error.html', error_id=404, error_desc="Desculpa, página não encontrada!"), 404
@@ -173,5 +185,3 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template('error.html', error_id=500, error_desc="Desculpa, erro interno do servidor!"), 500
-
-#

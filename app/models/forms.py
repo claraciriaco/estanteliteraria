@@ -9,7 +9,12 @@ class LivroForm(FlaskForm):
     autor = StringField("autor",validators=[DataRequired()])
     datainicio = IntegerField("datainicio", validators=[DataRequired()])
     datafim = IntegerField("datafim", validators=[DataRequired()])
-    obs = StringField("obs",validators=[DataRequired()])
+
+    submit = SubmitField('submit')
+
+class AvaliacaoForm(FlaskForm):
+    estrela = IntegerField("estrela",validators=[DataRequired()])
+    nota = StringField("nota",validators=[DataRequired()])
 
     submit = SubmitField('submit')
 
@@ -30,5 +35,7 @@ class CadastroForm(FlaskForm):
 
 class DeleteForm(FlaskForm):
     submit = SubmitField('Excluir')
+
+
 
 
